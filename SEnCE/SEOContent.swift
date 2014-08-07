@@ -9,30 +9,49 @@
 import Foundation
 import AppKit
 
+func regex_content(regex:String, content:String) -> String {
+    var error:NSError?=nil
+    let fullRange = NSMakeRange(0, countElements(content))
+    let r = NSRegularExpression(pattern: regex, options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
+    if let match = r.firstMatchInString(content, options: nil, range: fullRange) {
+        return (content as NSString).substringWithRange(match.range)
+    }
+    return ""
+}
+
+func regexps_content<T>(content:T, regexps:String...) -> String {
+    var contentAsString=""
+    var s = ""
+    switch content {
+    case is String:
+        contentAsString = content as String
+    case is NSAttributedString:
+        var error:NSError? = nil
+        contentAsString = NSString(data: (content as NSAttributedString).dataFromRange(NSMakeRange(0, (content as NSAttributedString).length), documentAttributes: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], error: &error), encoding: NSUTF8StringEncoding)
+        if error {
+            return ""
+        }
+    default:
+        return ""
+    }
+    
+    for regex in regexps {
+        s += "\n\n\(regex_content(regex, contentAsString))"
+    }
+    return s
+}
+
 public class SEOContent: NSObject, NSCoding, NSCopying {
     // MARK: Initializers
     var content:NSAttributedString
     var keywords:[SEOKeyword]
-    
     var htmlString:String {
-        var error:NSError? = nil
-        
-        let regex_style = NSRegularExpression(pattern: "<style.*>[\\s\\S]*?<\\/style>", options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-        let regex_body = NSRegularExpression(pattern: "<body.*>(.+?|[\\s\\S]*)<\\/body>", options: NSRegularExpressionOptions.CaseInsensitive, error: &error)
-
-        let html = NSString(data: self.content.dataFromRange(NSMakeRange(0, self.content.length), documentAttributes: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], error: &error), encoding: NSUTF8StringEncoding)
-            
-        var returnHTMLString = ""
-        let fullRange = NSMakeRange(0, html.length)
-        if let match = regex_style.firstMatchInString(html, options: nil, range: fullRange) {
-            returnHTMLString = html.substringWithRange(match.range)
-        }
-        if let match = regex_body.firstMatchInString(html, options: nil, range: fullRange) {
-            returnHTMLString += "\n"
-            returnHTMLString += html.substringWithRange(match.range)
-        }
-        
-        return returnHTMLString
+    get {
+        return regexps_content(self.content, "<style.*>[\\s\\S]*?<\\/style>", "<body.*>(.+?|[\\s\\S]*)<\\/body>")
+    }
+    set {
+        regexps_content(self.content, "<style.*>[\\s\\S]*?<\\/style>", "<body.*>(.+?|[\\s\\S]*)<\\/body>")
+    }
     }
     
     private struct SerializationKey {

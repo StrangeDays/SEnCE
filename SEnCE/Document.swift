@@ -119,7 +119,7 @@ class Document: NSDocument, NSTableViewDataSource, NSTableViewDelegate, NSTextVi
     
     func textDidChange(notification: NSNotification!) {
         self.seoContent.content = self.textView.attributedString()
-        self.seoContent.htmlString
+        self.seoContent.htmlString=""
         self.seoContent.countKeywords()
         self.tableKeywords.reloadData()
         self.setStatusLabel()
