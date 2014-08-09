@@ -28,7 +28,7 @@ func regexps_content<T>(content:T, regexps:String...) -> String {
     case is NSAttributedString:
         var error:NSError? = nil
         contentAsString = NSString(data: (content as NSAttributedString).dataFromRange(NSMakeRange(0, (content as NSAttributedString).length), documentAttributes: [NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType], error: &error), encoding: NSUTF8StringEncoding)
-        if error {
+        if !(error==nil) {
             return ""
         }
     default:
@@ -70,7 +70,7 @@ public class SEOContent: NSObject, NSCoding, NSCopying {
     
     // MARK: NSCoding
     
-    public init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         keywords = aDecoder.decodeObjectForKey(SerializationKey.keywords) as [SEOKeyword]
         content = aDecoder.decodeObjectForKey(SerializationKey.content) as NSAttributedString
     }
@@ -104,7 +104,7 @@ public class SEOContent: NSObject, NSCoding, NSCopying {
         var error:NSError?=nil
         
         let fileContents = String.stringWithContentsOfURL(fileName, encoding: NSUTF8StringEncoding, error: &error)
-        if !error && fileContents {
+        if !(error==nil) {
             self.keywords = [SEOKeyword]()
             fileContents?.enumerateLines {(line:String, inout stop:Bool) -> () in
                 self.keywords.append(SEOKeyword(keyword: line))

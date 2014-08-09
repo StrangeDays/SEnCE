@@ -63,7 +63,7 @@ public class SEOKeyword: NSObject, NSCopying, NSCoding {
     
     // MARK: NSCoding
     
-    public init(coder aDecoder: NSCoder) {
+    public required init(coder aDecoder: NSCoder) {
         keyword = aDecoder.decodeObjectForKey(SerializationKey.keyword) as String
         density = aDecoder.decodeIntegerForKey(SerializationKey.density)
     }

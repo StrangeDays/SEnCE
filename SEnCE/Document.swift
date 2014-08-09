@@ -35,7 +35,7 @@ class Document: NSDocument, NSTableViewDataSource, NSTableViewDelegate, NSTextVi
     @IBOutlet var statusLabel:NSTextField!
     
     var seoContent:SEOContent!
-    init() {
+    override init() {
         super.init()
         self.seoContent = SEOContent(content: NSAttributedString())
     
