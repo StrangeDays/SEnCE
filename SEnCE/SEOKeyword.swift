@@ -10,8 +10,8 @@ import Foundation
 import Cocoa
 
 public class SEOKeyword: NSObject, NSCopying, NSCoding {
-    var keyword:String
-    var density:Int
+    var keyword:String = ""
+    var density:Int = 0
     var status:KeywordStatus {
     switch density {
     case 0:

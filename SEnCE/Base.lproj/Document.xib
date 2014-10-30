@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6185.11" systemVersion="13E28" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="6250" systemVersion="14A388a" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6185.11"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="6250"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="Document" customModule="SEnCE" customModuleProvider="target">
             <connections>
+                <outlet property="arrayController" destination="FxZ-Oe-dm9" id="WKh-a3-heU"/>
+                <outlet property="htmlTextView" destination="LX6-ZW-aKL" id="D7x-Ei-ohJ"/>
                 <outlet property="statusLabel" destination="eDK-Kb-bQA" id="Ccu-Sc-eoH"/>
                 <outlet property="tableKeywords" destination="px1-Nh-2sb" id="cbH-1K-5PT"/>
                 <outlet property="textView" destination="xuN-qs-zya" id="gSO-9H-pwG"/>
@@ -18,7 +20,7 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="133" y="235" width="756" height="603"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1058"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="94" height="86"/>
             <view key="contentView" id="gIp-Ho-8D9">
                 <rect key="frame" x="0.0" y="0.0" width="756" height="603"/>
@@ -42,18 +44,18 @@
                                                     <subviews>
                                                         <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8F-g5-oWu">
                                                             <rect key="frame" x="0.0" y="0.0" width="244" height="513"/>
-                                                            <clipView key="contentView" id="tWa-I6-eok">
+                                                            <clipView key="contentView" misplaced="YES" id="tWa-I6-eok">
                                                                 <rect key="frame" x="1" y="17" width="238" height="117"/>
                                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                 <subviews>
-                                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="p3D-gJ-BSO" id="px1-Nh-2sb">
+                                                                    <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" typeSelect="NO" headerView="p3D-gJ-BSO" id="px1-Nh-2sb">
                                                                         <rect key="frame" x="0.0" y="0.0" width="244" height="19"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <size key="intercellSpacing" width="3" height="2"/>
                                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                                         <tableColumns>
-                                                                            <tableColumn identifier="AutomaticTableColumnIdentifier.0" width="180" minWidth="40" maxWidth="1000" id="AQI-aP-60G">
+                                                                            <tableColumn identifier="AutomaticTableColumnIdentifier.0" editable="NO" width="180" minWidth="40" maxWidth="1000" id="AQI-aP-60G">
                                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Keyword">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -67,12 +69,13 @@
                                                                                         <binding destination="FxZ-Oe-dm9" name="value" keyPath="selection.description" id="d2G-bL-Z0o"/>
                                                                                     </connections>
                                                                                 </textFieldCell>
+                                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="keyword"/>
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <connections>
-                                                                                    <binding destination="FxZ-Oe-dm9" name="value" keyPath="arrangedObjects.keyword" id="lkf-nC-ZVD"/>
+                                                                                    <binding destination="FxZ-Oe-dm9" name="value" keyPath="arrangedObjects.keyword" id="Lgv-43-KG8"/>
                                                                                 </connections>
                                                                             </tableColumn>
-                                                                            <tableColumn identifier="AutomaticTableColumnIdentifier.1" width="58" minWidth="40" maxWidth="1000" id="xuN-pI-k0N">
+                                                                            <tableColumn identifier="AutomaticTableColumnIdentifier.1" editable="NO" width="58" minWidth="40" maxWidth="1000" id="xuN-pI-k0N">
                                                                                 <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="right" title="Density">
                                                                                     <font key="font" metaFont="smallSystem"/>
                                                                                     <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -86,6 +89,7 @@
                                                                                         <binding destination="FxZ-Oe-dm9" name="value" keyPath="selection.density" id="vBX-FZ-uXK"/>
                                                                                     </connections>
                                                                                 </textFieldCell>
+                                                                                <sortDescriptor key="sortDescriptorPrototype" selector="compare:" sortKey="density"/>
                                                                                 <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                                                 <connections>
                                                                                     <binding destination="FxZ-Oe-dm9" name="value" keyPath="arrangedObjects.density" id="L0b-pN-Nvy"/>
@@ -105,7 +109,7 @@
                                                                 <rect key="frame" x="1" y="119" width="223" height="15"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
-                                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="EBo-94-V9q">
+                                                            <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="EBo-94-V9q">
                                                                 <rect key="frame" x="224" y="17" width="15" height="102"/>
                                                                 <autoresizingMask key="autoresizingMask"/>
                                                             </scroller>
@@ -168,7 +172,7 @@
                                                 <real value="250"/>
                                             </holdingPriorities>
                                         </splitView>
-                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="eDK-Kb-bQA">
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eDK-Kb-bQA">
                                             <rect key="frame" x="4" y="0.0" width="716" height="17"/>
                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" enabled="NO" allowsUndo="NO" sendsActionOnEndEditing="YES" placeholderString="Status" usesSingleLineMode="YES" id="z35-6e-8A6">
                                                 <font key="font" metaFont="system"/>
@@ -209,12 +213,9 @@
                                                         <size key="minSize" width="710" height="534"/>
                                                         <size key="maxSize" width="727" height="10000000"/>
                                                         <connections>
-                                                            <binding destination="eae-K8-21L" name="value" keyPath="selection.htmlString" id="AoM-wz-ggZ">
+                                                            <binding destination="-2" name="value" keyPath="self.seoContent.htmlString" id="SO7-qy-c9k">
                                                                 <dictionary key="options">
-                                                                    <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                                    <string key="NSNullPlaceholder">Nothing</string>
-                                                                    <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
+                                                                    <bool key="NSValidatesImmediately" value="YES"/>
                                                                 </dictionary>
                                                             </binding>
                                                         </connections>
@@ -241,6 +242,9 @@
                                 </view>
                             </tabViewItem>
                         </tabViewItems>
+                        <connections>
+                            <outlet property="delegate" destination="-2" id="L2g-DE-krH"/>
+                        </connections>
                     </tabView>
                 </subviews>
                 <constraints>
@@ -268,7 +272,7 @@
             </connections>
             <point key="canvasLocation" x="264" y="241.5"/>
         </window>
-        <arrayController id="FxZ-Oe-dm9">
+        <arrayController automaticallyRearrangesObjects="YES" id="FxZ-Oe-dm9">
             <connections>
                 <binding destination="-2" name="contentArray" keyPath="self.seoContent.keywords" id="WXE-rm-j2H"/>
             </connections>
@@ -276,7 +280,7 @@
         <userDefaultsController representsSharedInstance="YES" id="nZ6-Ol-gRB"/>
         <objectController id="eae-K8-21L">
             <connections>
-                <binding destination="-2" name="contentObject" keyPath="self.seoContent" id="5QJ-E0-PC9"/>
+                <binding destination="-2" name="contentObject" keyPath="self.seoContent.htmlString" id="hmF-P2-Y7o"/>
             </connections>
         </objectController>
     </objects>
